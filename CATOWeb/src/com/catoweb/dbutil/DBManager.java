@@ -177,6 +177,10 @@ public class DBManager {
 				list.add(String.valueOf(rst.getInt("Cl5")));
 				list.add(String.valueOf(rst.getInt("Cl6")));
 				list.add(String.valueOf(rst.getInt("Cl7")));
+				list.add(String.valueOf(rst.getInt("Cl8")));
+				list.add(String.valueOf(rst.getInt("Cl9")));
+				list.add(String.valueOf(rst.getInt("Cl10")));
+				list.add(String.valueOf(rst.getInt("Cl11")));
 				
 			}
 			rst.close();
@@ -196,6 +200,26 @@ public class DBManager {
 			Statement stmt=conn.createStatement();
 			stmt.execute(sql);
 			stmt.execute(sql1);		
+			this.closeConn();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void setColorProfile(String profilename){
+		try{
+			this.getConn();
+			String sql="DELETE FROM CATO.Color WHERE trainid=1220";
+			String sqlp1="INSERT INTO `CATO`.`Color` (`Cl1`, `Cl2`, `Cl3`, `Cl4`, `Cl5`, `Cl6`, `Cl7`, `Cl8`, `Cl9`, `Cl10`, `Cl11`, `trainid`) VALUES ('-65281','-16776961','-16777216','-65536','-16716936','-7829368','-7829368','-7829368','-7829368','-7829368','-7829368', '1220')";
+			String sqlp2="INSERT INTO `CATO`.`Color` (`Cl1`, `Cl2`, `Cl3`, `Cl4`, `Cl5`, `Cl6`, `Cl7`, `Cl8`, `Cl9`, `Cl10`, `Cl11`, `trainid`) VALUES ('-65536','-16776961','-16777216','-65281','-16716936','-7829368','-7829368','-7829368','-7829368','-7829368','-7829368', '1220')";
+			Statement stmt=conn.createStatement();
+			stmt.execute(sql);
+			if(profilename.trim().equalsIgnoreCase("p1")){
+				stmt.execute(sqlp1);
+			}
+			if(profilename.trim().equalsIgnoreCase("p2")){
+				stmt.execute(sqlp2);
+			}
 			this.closeConn();
 		}catch(Exception e){
 			e.printStackTrace();
